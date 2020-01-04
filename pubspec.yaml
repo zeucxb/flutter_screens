@@ -1,6 +1,6 @@
 name: screens
 description: A new Flutter package project.
-version: 0.0.1
+version: 1.0.0
 author: Eliseu Codinhoto <zeucxb@gmail.com>
 homepage: https://github.com/zeucxb/flutter_screens
 
@@ -10,6 +10,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_statusbarcolor: ^0.2.3
 
 dev_dependencies:
   flutter_test:
