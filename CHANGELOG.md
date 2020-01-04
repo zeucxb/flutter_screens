@@ -1,3 +1,7 @@
-## [0.0.1] - TODO: Add release date.
+## [1.0.0] - 01-04-2019
 
-* TODO: Describe initial release.
+* Add ScreenWidget first version
+
+## [0.0.1] - Nothing
+
+* Nothing

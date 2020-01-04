@@ -1,7 +1,6 @@
 name: screens
 description: A new Flutter package project.
 version: 1.0.0
-author: Eliseu Codinhoto <zeucxb@gmail.com>
 homepage: https://github.com/zeucxb/flutter_screens
 
 environment:
