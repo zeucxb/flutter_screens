@@ -20,6 +20,8 @@ class ScreenWidget extends StatefulWidget {
   final bool isStatic;
   final EdgeInsetsGeometry padding;
   final BottomNavigationBar bottomNavigationBar;
+  final Brightness brightness;
+  final Color backgroundColor;
 
   ScreenWidget({
     Key key,
@@ -32,6 +34,8 @@ class ScreenWidget extends StatefulWidget {
     this.child,
     this.children,
     this.bottomNavigationBar,
+    this.brightness,
+    this.backgroundColor,
   })  : assert(child != null || children != null),
         super(key: key);
 
@@ -59,42 +63,51 @@ class _ScreenWidgetState extends State<ScreenWidget> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    final _appBar = AppBar(
-      backgroundColor:
-          widget.isAccent ? theme.accentColor : theme.scaffoldBackgroundColor,
-      centerTitle: true,
-      title: widget.appBarWidget ??
-          Text(
-            widget.appBarText,
-          ),
-    );
+    final _appBar = widget.showAppBar
+        ? AppBar(
+            brightness: widget.brightness,
+            backgroundColor: widget.isAccent
+                ? theme.accentColor
+                : theme.scaffoldBackgroundColor,
+            centerTitle: true,
+            title: widget.appBarWidget ??
+                Text(
+                  widget.appBarText,
+                ),
+          )
+        : PreferredSize(
+            preferredSize: Size.zero,
+            child: AppBar(
+              brightness: widget.brightness,
+              backgroundColor: Colors.transparent,
+            ),
+          );
 
     return Stack(
       children: <Widget>[
         Scaffold(
-          backgroundColor: widget.isAccent ? theme.accentColor : null,
-          appBar: widget.showAppBar ? _appBar : null,
-          body: Container(
-            child: SafeArea(
-              child: (widget.child != null)
-                  ? LayoutBuilder(
-                      builder:
-                          (BuildContext context, BoxConstraints constraints) {
-                        _setHeight(constraints.constrainHeight(
-                            MediaQuery.of(context).size.height));
-                        return SingleChildScrollView(
-                          child: widget.isStatic
-                              ? Container(
-                                  padding: widget.padding,
-                                  height: _height,
-                                  child: widget.child,
-                                )
-                              : widget.child,
-                        );
-                      },
-                    )
-                  : ListView(children: widget.children),
-            ),
+          backgroundColor: widget.backgroundColor ??
+              (widget.isAccent ? theme.accentColor : null),
+          appBar: _appBar,
+          body: SafeArea(
+            child: (widget.child != null)
+                ? LayoutBuilder(
+                    builder:
+                        (BuildContext context, BoxConstraints constraints) {
+                      _setHeight(constraints
+                          .constrainHeight(MediaQuery.of(context).size.height));
+                      return SingleChildScrollView(
+                        child: widget.isStatic
+                            ? Container(
+                                padding: widget.padding,
+                                height: _height,
+                                child: widget.child,
+                              )
+                            : widget.child,
+                      );
+                    },
+                  )
+                : ListView(children: widget.children),
           ),
           bottomNavigationBar: widget.bottomNavigationBar,
         ),
