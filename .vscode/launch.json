@@ -8,7 +8,7 @@
             "name": "Example",
             "request": "launch",
             "type": "dart",
-            "program": "${workspaceRoot}/example/main.dart"
+            "program": "${workspaceRoot}/example/lib/main.dart"
         }
     ]
 }

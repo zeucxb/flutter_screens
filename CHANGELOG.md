@@ -1,3 +1,7 @@
+## [1.1.3] - 01-04-2019
+
+* Fix appBar elevation
+
 ## [1.1.2] - 01-04-2019
 
 * Fix example and CHANGELOG

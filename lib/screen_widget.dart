@@ -78,6 +78,7 @@ class _ScreenWidgetState extends State<ScreenWidget> {
         : PreferredSize(
             preferredSize: Size.zero,
             child: AppBar(
+              elevation: 0,
               brightness: widget.brightness,
               backgroundColor: Colors.transparent,
             ),

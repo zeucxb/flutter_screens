@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       home: ScreenWidget(
         brightness: Brightness.dark,
-        backgroundColor: Colors.black,
+        backgroundColor: Colors.brown,
         child: Container(),
       ),
     );
