@@ -70,10 +70,9 @@ class _ScreenWidgetState extends State<ScreenWidget> {
                 ? theme.accentColor
                 : theme.scaffoldBackgroundColor,
             centerTitle: true,
-            title: widget.appBarWidget ??
-                Text(
-                  widget.appBarText,
-                ),
+            title: Text(
+              widget.appBarText,
+            ),
           )
         : PreferredSize(
             preferredSize: Size.zero,
@@ -89,7 +88,7 @@ class _ScreenWidgetState extends State<ScreenWidget> {
         Scaffold(
           backgroundColor: widget.backgroundColor ??
               (widget.isAccent ? theme.accentColor : null),
-          appBar: _appBar,
+          appBar: widget.appBarWidget ?? _appBar,
           body: SafeArea(
             child: (widget.child != null)
                 ? LayoutBuilder(
