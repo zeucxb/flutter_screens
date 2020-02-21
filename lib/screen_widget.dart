@@ -22,12 +22,16 @@ class ScreenWidget extends StatefulWidget {
   final BottomNavigationBar bottomNavigationBar;
   final Brightness brightness;
   final Color backgroundColor;
+  final GlobalKey<ScaffoldState> scaffoldKey;
+  final isDefaultScaffold;
 
   ScreenWidget({
     Key key,
+    this.scaffoldKey,
     this.showAppBar = false,
     this.isAccent = false,
     this.isStatic = false,
+    this.isDefaultScaffold = false,
     this.appBarText = '',
     this.appBarWidget,
     this.padding,
@@ -86,28 +90,34 @@ class _ScreenWidgetState extends State<ScreenWidget> {
     return Stack(
       children: <Widget>[
         Scaffold(
+          key: widget.scaffoldKey,
           backgroundColor: widget.backgroundColor ??
               (widget.isAccent ? theme.accentColor : null),
           appBar: widget.appBarWidget ?? _appBar,
           body: SafeArea(
-            child: (widget.child != null)
-                ? LayoutBuilder(
-                    builder:
-                        (BuildContext context, BoxConstraints constraints) {
-                      _setHeight(constraints
-                          .constrainHeight(MediaQuery.of(context).size.height));
-                      return SingleChildScrollView(
-                        child: widget.isStatic
-                            ? Container(
-                                padding: widget.padding,
-                                height: _height,
-                                child: widget.child,
-                              )
-                            : widget.child,
-                      );
-                    },
+            child: widget.isDefaultScaffold
+                ? Padding(
+                    padding: widget.padding,
+                    child: widget.child,
                   )
-                : ListView(children: widget.children),
+                : (widget.child != null)
+                    ? LayoutBuilder(
+                        builder:
+                            (BuildContext context, BoxConstraints constraints) {
+                          _setHeight(constraints.constrainHeight(
+                              MediaQuery.of(context).size.height));
+                          return SingleChildScrollView(
+                            child: widget.isStatic
+                                ? Container(
+                                    padding: widget.padding,
+                                    height: _height,
+                                    child: widget.child,
+                                  )
+                                : widget.child,
+                          );
+                        },
+                      )
+                    : ListView(children: widget.children),
           ),
           bottomNavigationBar: widget.bottomNavigationBar,
         ),

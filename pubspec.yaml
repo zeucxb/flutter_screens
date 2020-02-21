@@ -1,6 +1,6 @@
 name: screens
 description: A custom widget to handle and create flutter app screens
-version: 1.1.4
+version: 1.1.7
 homepage: https://github.com/zeucxb/flutter_screens
 
 environment:
