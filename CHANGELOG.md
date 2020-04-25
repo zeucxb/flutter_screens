@@ -1,3 +1,7 @@
+## [1.2.2] - 25-04-2020
+
+* Improve package description
+
 ## [1.2.0] - 25-04-2020
 
 * Add Screen class, a handler to ScreenWidget
