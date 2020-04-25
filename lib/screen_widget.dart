@@ -1,11 +1,14 @@
-library screens;
-
 import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:screens/error_dialog_widget.dart';
+import 'package:screens/screen_event.dart';
+import 'package:screens/screen_overlay.dart';
 
 class ScreenWidget extends StatefulWidget {
+  // ignore: close_sinks
+  final StreamController<ScreenEvent> eventsStreamController =
+      StreamController();
   // ignore: close_sinks
   final StreamController<String> errorStreamController = StreamController();
   // ignore: close_sinks
@@ -23,7 +26,10 @@ class ScreenWidget extends StatefulWidget {
   final Brightness brightness;
   final Color backgroundColor;
   final GlobalKey<ScaffoldState> scaffoldKey;
-  final isDefaultScaffold;
+  final bool isDefaultScaffold;
+  final ScreenOverlay errorOverlay;
+  final Widget loaderWidget;
+  final Map<String, ScreenOverlay> screenEvents;
 
   ScreenWidget({
     Key key,
@@ -40,6 +46,9 @@ class ScreenWidget extends StatefulWidget {
     this.bottomNavigationBar,
     this.brightness,
     this.backgroundColor,
+    this.errorOverlay,
+    this.loaderWidget,
+    this.screenEvents,
   })  : assert(child != null || children != null),
         super(key: key);
 
@@ -50,8 +59,13 @@ class ScreenWidget extends StatefulWidget {
 class _ScreenWidgetState extends State<ScreenWidget> {
   double _height;
 
+  get screenEvents => widget.screenEvents;
+  get errorOverlay => widget.errorOverlay;
+  get loaderWidget => widget.loaderWidget;
+
   @override
   dispose() {
+    widget.eventsStreamController.close();
     widget.errorStreamController.close();
     widget.loaderStreamController.close();
     super.dispose();
@@ -121,11 +135,26 @@ class _ScreenWidgetState extends State<ScreenWidget> {
           ),
           bottomNavigationBar: widget.bottomNavigationBar,
         ),
+        _buildScreenEvent(context),
         _buildErrorDialog(context),
         _buildLoader(context),
       ],
     );
   }
+
+  Widget _buildScreenEvent(BuildContext context) => StreamBuilder<ScreenEvent>(
+        stream: widget.eventsStreamController.stream,
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          final ScreenEvent screenEvent = snapshot.data;
+          if (screenEvent == null) {
+            return Container();
+          }
+
+          return (screenEvents[snapshot.data.event] != null)
+              ? screenEvents[snapshot.data.event].build(snapshot.data.data)
+              : Container();
+        },
+      );
 
   Widget _buildErrorDialog(BuildContext context) => StreamBuilder<String>(
         stream: widget.errorStreamController.stream,
@@ -134,13 +163,15 @@ class _ScreenWidgetState extends State<ScreenWidget> {
             return Container();
           }
 
-          return ErrorDialog(
-            errorMessage: snapshot.data,
-            previousStatusBarWhiteForeground: !widget.isAccent,
-            closeFunction: () {
-              widget.errorStreamController.add(null);
-            },
-          );
+          return (errorOverlay != null)
+              ? errorOverlay.build(snapshot.data)
+              : ErrorDialog(
+                  errorMessage: snapshot.data,
+                  previousStatusBarWhiteForeground: !widget.isAccent,
+                  closeFunction: () {
+                    widget.errorStreamController.add(null);
+                  },
+                );
         },
       );
 
@@ -153,20 +184,21 @@ class _ScreenWidgetState extends State<ScreenWidget> {
 
           final theme = Theme.of(context);
 
-          return Container(
-            color: Colors.black.withOpacity(0.5),
-            height: double.infinity,
-            width: double.infinity,
-            child: Center(
-              child: CircularProgressIndicator(
-                valueColor: AlwaysStoppedAnimation<Color>(
-                  !widget.isAccent
-                      ? theme.accentColor
-                      : theme.scaffoldBackgroundColor,
+          return loaderWidget ??
+              Container(
+                color: Colors.black.withOpacity(0.5),
+                height: double.infinity,
+                width: double.infinity,
+                child: Center(
+                  child: CircularProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation<Color>(
+                      !widget.isAccent
+                          ? theme.accentColor
+                          : theme.scaffoldBackgroundColor,
+                    ),
+                  ),
                 ),
-              ),
-            ),
-          );
+              );
         },
       );
 }
