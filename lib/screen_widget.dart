@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:screens/error_dialog_widget.dart';
+import 'package:screens/safe_area_config.dart';
 import 'package:screens/screen_event.dart';
 import 'package:screens/screen_overlay.dart';
 
@@ -27,6 +28,7 @@ class ScreenWidget extends StatefulWidget {
   final Color backgroundColor;
   final GlobalKey<ScaffoldState> scaffoldKey;
   final bool isDefaultScaffold;
+  final SafeAreaConfig safeAreaConfig;
   final ScreenOverlay errorOverlay;
   final Widget loaderWidget;
   final Map<String, ScreenOverlay> screenEvents;
@@ -47,6 +49,7 @@ class ScreenWidget extends StatefulWidget {
     this.bottomNavigationBar,
     this.brightness,
     this.backgroundColor,
+    this.safeAreaConfig = const SafeAreaConfig(),
     this.errorOverlay,
     this.loaderWidget,
     this.screenEvents,
@@ -112,6 +115,10 @@ class _ScreenWidgetState extends State<ScreenWidget> {
               (widget.isAccent ? theme.accentColor : null),
           appBar: widget.appBarWidget ?? _appBar,
           body: SafeArea(
+            top: widget.safeAreaConfig.top,
+            left: widget.safeAreaConfig.left,
+            right: widget.safeAreaConfig.right,
+            bottom: widget.safeAreaConfig.bottom,
             child: widget.isDefaultScaffold
                 ? Padding(
                     padding: widget.padding,

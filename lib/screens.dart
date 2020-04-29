@@ -1,6 +1,7 @@
 library screens;
 
 import 'package:flutter/material.dart';
+import 'package:screens/safe_area_config.dart';
 import 'package:screens/screen_overlay.dart';
 import 'package:screens/screen_widget.dart';
 
@@ -33,6 +34,7 @@ class Screens {
     BottomNavigationBar bottomNavigationBar,
     Brightness brightness,
     Color backgroundColor,
+    SafeAreaConfig safeAreaConfig,
   }) =>
       ScreenWidget(
         scaffoldKey: scaffoldKey,
@@ -48,6 +50,7 @@ class Screens {
         bottomNavigationBar: bottomNavigationBar,
         brightness: brightness,
         backgroundColor: backgroundColor,
+        safeAreaConfig: safeAreaConfig ?? const SafeAreaConfig(),
         errorOverlay: this.errorOverlay,
         loaderWidget: this.loaderWidget,
         screenEvents: this.screenEvents,
