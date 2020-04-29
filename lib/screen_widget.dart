@@ -87,25 +87,18 @@ class _ScreenWidgetState extends State<ScreenWidget> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    final _appBar = widget.showAppBar
-        ? AppBar(
-            brightness: widget.brightness,
-            backgroundColor: widget.isAccent
-                ? theme.accentColor
-                : theme.scaffoldBackgroundColor,
-            centerTitle: true,
-            title: Text(
-              widget.appBarText,
-            ),
-          )
-        : PreferredSize(
-            preferredSize: Size.zero,
-            child: AppBar(
-              elevation: 0,
-              brightness: widget.brightness,
-              backgroundColor: Colors.transparent,
-            ),
-          );
+    final _appBar = widget.appBarWidget ??
+        AppBar(
+          brightness: widget.brightness,
+          backgroundColor: widget.isAccent
+              ? theme.accentColor
+              : theme.scaffoldBackgroundColor,
+          centerTitle: true,
+          title: Text(
+            widget.appBarText,
+          ),
+          elevation: widget.showAppBar ? theme.appBarTheme.elevation : 0,
+        );
 
     return Stack(
       children: <Widget>[
@@ -113,7 +106,12 @@ class _ScreenWidgetState extends State<ScreenWidget> {
           key: widget.scaffoldKey,
           backgroundColor: widget.backgroundColor ??
               (widget.isAccent ? theme.accentColor : null),
-          appBar: widget.appBarWidget ?? _appBar,
+          appBar: widget.showAppBar
+              ? _appBar
+              : PreferredSize(
+                  preferredSize: Size.fromHeight(0),
+                  child: _appBar,
+                ),
           body: SafeArea(
             top: widget.safeAreaConfig.top,
             left: widget.safeAreaConfig.left,
@@ -162,7 +160,7 @@ class _ScreenWidgetState extends State<ScreenWidget> {
 
           return (screenEvents[snapshot.data.event] != null)
               ? screenEvents[snapshot.data.event]
-                  .build(this, snapshot.data.data)
+                  .build(widget, snapshot.data.data)
               : Container();
         },
       );
@@ -175,7 +173,7 @@ class _ScreenWidgetState extends State<ScreenWidget> {
           }
 
           return (errorOverlay != null)
-              ? errorOverlay.build(this, snapshot.data)
+              ? errorOverlay.build(widget, snapshot.data)
               : ErrorDialog(
                   errorMessage: snapshot.data,
                   previousStatusBarWhiteForeground: !widget.isAccent,

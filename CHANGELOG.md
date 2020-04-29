@@ -1,3 +1,11 @@
+## [1.5.3]
+* Fix [Screens] appBarText
+
+## [1.5.2]
+* Fix showAppBar
+
+## [1.5.1]
+* Fix ScreenOverlay build
 
 ## [1.5.0]
 * Update ScreenOverlay structure

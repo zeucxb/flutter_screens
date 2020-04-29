@@ -26,7 +26,7 @@ class Screens {
     bool isAccent = false,
     bool isStatic = false,
     bool isDefaultScaffold = false,
-    String appBarText,
+    String appBarText = '',
     AppBar appBarWidget,
     EdgeInsets padding,
     Widget child,
@@ -34,7 +34,7 @@ class Screens {
     BottomNavigationBar bottomNavigationBar,
     Brightness brightness,
     Color backgroundColor,
-    SafeAreaConfig safeAreaConfig,
+    SafeAreaConfig safeAreaConfig = const SafeAreaConfig(),
   }) =>
       ScreenWidget(
         scaffoldKey: scaffoldKey,
@@ -50,7 +50,7 @@ class Screens {
         bottomNavigationBar: bottomNavigationBar,
         brightness: brightness,
         backgroundColor: backgroundColor,
-        safeAreaConfig: safeAreaConfig ?? const SafeAreaConfig(),
+        safeAreaConfig: safeAreaConfig,
         errorOverlay: this.errorOverlay,
         loaderWidget: this.loaderWidget,
         screenEvents: this.screenEvents,
