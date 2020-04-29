@@ -12,7 +12,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Screens(
+        fixedOverlayWidgets: [
+          Banner(
+            message: 'Test',
+            location: BannerLocation.topStart,
+          )
+        ],
         screenEvents: {
           'icons': CustomOverlayWidget(),
         },

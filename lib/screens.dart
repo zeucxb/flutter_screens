@@ -7,11 +7,13 @@ import 'package:screens/screen_widget.dart';
 export 'package:screens/screen_event.dart';
 
 class Screens {
+  final List<Widget> fixedOverlayWidgets;
   final Map<String, ScreenOverlay> screenEvents;
   final ScreenOverlay errorOverlay;
   final Widget loaderWidget;
 
   Screens({
+    this.fixedOverlayWidgets,
     this.screenEvents,
     this.errorOverlay,
     this.loaderWidget,
@@ -49,5 +51,6 @@ class Screens {
         errorOverlay: this.errorOverlay,
         loaderWidget: this.loaderWidget,
         screenEvents: this.screenEvents,
+        fixedOverlayWidgets: this.fixedOverlayWidgets,
       );
 }

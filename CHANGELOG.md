@@ -1,3 +1,6 @@
+## [1.3.0]
+* Add fixedOverlayWidgets
+
 ## [1.2.3]
 * Fix CHANGELOG
 

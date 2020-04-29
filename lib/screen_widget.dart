@@ -30,6 +30,7 @@ class ScreenWidget extends StatefulWidget {
   final ScreenOverlay errorOverlay;
   final Widget loaderWidget;
   final Map<String, ScreenOverlay> screenEvents;
+  final List<Widget> fixedOverlayWidgets;
 
   ScreenWidget({
     Key key,
@@ -49,6 +50,7 @@ class ScreenWidget extends StatefulWidget {
     this.errorOverlay,
     this.loaderWidget,
     this.screenEvents,
+    this.fixedOverlayWidgets,
   })  : assert(child != null || children != null),
         super(key: key);
 
@@ -62,6 +64,7 @@ class _ScreenWidgetState extends State<ScreenWidget> {
   get screenEvents => widget.screenEvents;
   get errorOverlay => widget.errorOverlay;
   get loaderWidget => widget.loaderWidget;
+  List<Widget> get fixedOverlayWidgets => widget.fixedOverlayWidgets ?? [];
 
   @override
   dispose() {
@@ -138,7 +141,7 @@ class _ScreenWidgetState extends State<ScreenWidget> {
         _buildScreenEvent(context),
         _buildErrorDialog(context),
         _buildLoader(context),
-      ],
+      ]..addAll(fixedOverlayWidgets),
     );
   }
 
