@@ -161,7 +161,8 @@ class _ScreenWidgetState extends State<ScreenWidget> {
           }
 
           return (screenEvents[snapshot.data.event] != null)
-              ? screenEvents[snapshot.data.event].build(snapshot.data.data)
+              ? screenEvents[snapshot.data.event]
+                  .build(this, snapshot.data.data)
               : Container();
         },
       );
@@ -174,7 +175,7 @@ class _ScreenWidgetState extends State<ScreenWidget> {
           }
 
           return (errorOverlay != null)
-              ? errorOverlay.build(snapshot.data)
+              ? errorOverlay.build(this, snapshot.data)
               : ErrorDialog(
                   errorMessage: snapshot.data,
                   previousStatusBarWhiteForeground: !widget.isAccent,

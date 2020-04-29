@@ -1,3 +1,7 @@
+
+## [1.5.0]
+* Update ScreenOverlay structure
+
 ## [1.4.0]
 * Add SafeAreaConfig
 

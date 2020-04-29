@@ -3,7 +3,7 @@ import 'package:screens/screen_overlay.dart';
 
 class CustomOverlayWidget implements ScreenOverlay {
   @override
-  Widget build(data) => Container(
+  Widget build(_, data) => Container(
         alignment: Alignment.bottomCenter,
         child: Container(
           padding: EdgeInsets.all(50),
