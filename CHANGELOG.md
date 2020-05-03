@@ -1,5 +1,8 @@
+## [1.6.1]
+* Change `statusBerBrightness` to `statusBarBrightness`
+
 ## [1.6.0]
-* Change `brightness` to `statusBarBrightness`
+* Change `brightness` to `statusBerBrightness`
 * Change default `ErrorWidget`
 * Removed unused `package`
 
@@ -43,7 +46,7 @@
 * Fix backgroundColor and appBar
 
 ## [1.1.0]
-* Add statusBerBrightness and backgroundColor
+* Add statusBarBrightness and backgroundColor
 
 ## [1.0.0]
 * Add ScreenWidget first version

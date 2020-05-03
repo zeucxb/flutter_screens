@@ -32,7 +32,7 @@ class Screens {
     Widget child,
     List<Widget> children,
     BottomNavigationBar bottomNavigationBar,
-    Brightness statusBerBrightness,
+    Brightness statusBarBrightness,
     Color backgroundColor,
     SafeAreaConfig safeAreaConfig = const SafeAreaConfig(),
   }) =>
@@ -48,7 +48,7 @@ class Screens {
         child: child,
         children: children,
         bottomNavigationBar: bottomNavigationBar,
-        statusBerBrightness: statusBerBrightness,
+        statusBarBrightness: statusBarBrightness,
         backgroundColor: backgroundColor,
         safeAreaConfig: safeAreaConfig,
         errorOverlay: this.errorOverlay,

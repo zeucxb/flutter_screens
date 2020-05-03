@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
         loaderWidget: CustomLoaderWidget(),
         errorOverlay: CustomErrorWidget(),
       ).widget(
-        statusBerBrightness: Brightness.light,
+        statusBarBrightness: Brightness.light,
         backgroundColor: Colors.brown,
         child: Container(),
       )
