@@ -24,7 +24,7 @@ class ScreenWidget extends StatefulWidget {
   final bool isStatic;
   final EdgeInsetsGeometry padding;
   final BottomNavigationBar bottomNavigationBar;
-  final Brightness brightness;
+  final Brightness statusBerBrightness;
   final Color backgroundColor;
   final GlobalKey<ScaffoldState> scaffoldKey;
   final bool isDefaultScaffold;
@@ -47,7 +47,7 @@ class ScreenWidget extends StatefulWidget {
     this.child,
     this.children,
     this.bottomNavigationBar,
-    this.brightness,
+    this.statusBerBrightness,
     this.backgroundColor,
     this.safeAreaConfig = const SafeAreaConfig(),
     this.errorOverlay,
@@ -89,7 +89,7 @@ class _ScreenWidgetState extends State<ScreenWidget> {
 
     final _appBar = widget.appBarWidget ??
         AppBar(
-          brightness: widget.brightness,
+          brightness: widget.statusBerBrightness,
           backgroundColor: widget.isAccent
               ? theme.accentColor
               : theme.scaffoldBackgroundColor,

@@ -10,7 +10,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: ScreenWidget(
-        brightness: Brightness.dark,
+        statusBerBrightness: Brightness.dark,
         backgroundColor: Colors.brown,
         child: Container(),
       )..errorStreamController.add('Something went really wrong!'),

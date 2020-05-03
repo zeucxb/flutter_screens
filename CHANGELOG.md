@@ -1,3 +1,8 @@
+## [1.6.0]
+* Change `brightness` to `statusBarBrightness`
+* Change default `ErrorWidget`
+* Removed unused `package`
+
 ## [1.5.3]
 * Fix [Screens] appBarText
 
@@ -38,7 +43,7 @@
 * Fix backgroundColor and appBar
 
 ## [1.1.0]
-* Add brightness and backgroundColor
+* Add statusBerBrightness and backgroundColor
 
 ## [1.0.0]
 * Add ScreenWidget first version
