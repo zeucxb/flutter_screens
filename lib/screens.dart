@@ -1,21 +1,22 @@
 library screens;
 
 import 'package:flutter/material.dart';
+import 'package:screens/overlay_widget.dart';
 import 'package:screens/safe_area_config.dart';
-import 'package:screens/screen_overlay.dart';
+import 'package:screens/custom_overlay.dart';
 import 'package:screens/screen_widget.dart';
 
-export 'package:screens/screen_event.dart';
+export 'package:screens/overlay_event.dart';
 
 class Screens {
   final List<Widget> fixedOverlayWidgets;
-  final Map<String, ScreenOverlay> screenEvents;
-  final ScreenOverlay errorOverlay;
+  final Map<String, CustomOverlay> overlayEvents;
+  final CustomOverlay errorOverlay;
   final Widget loaderWidget;
 
   Screens({
     this.fixedOverlayWidgets,
-    this.screenEvents,
+    this.overlayEvents,
     this.errorOverlay,
     this.loaderWidget,
   });
@@ -53,7 +54,15 @@ class Screens {
         safeAreaConfig: safeAreaConfig,
         errorOverlay: this.errorOverlay,
         loaderWidget: this.loaderWidget,
-        screenEvents: this.screenEvents,
+        overlayEvents: this.overlayEvents,
+        fixedOverlayWidgets: this.fixedOverlayWidgets,
+      );
+
+  OverlayWidget overlay(Widget widget) => OverlayWidget(
+        widget,
+        errorOverlay: this.errorOverlay,
+        loaderWidget: this.loaderWidget,
+        overlayEvents: this.overlayEvents,
         fixedOverlayWidgets: this.fixedOverlayWidgets,
       );
 }

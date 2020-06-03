@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:screens/screen_overlay.dart';
+import 'package:screens/custom_overlay.dart';
+import 'package:screens/screen_widget.dart';
 
-class CustomOverlayWidget implements ScreenOverlay {
+class CustomOverlayWidget implements CustomOverlay {
   @override
-  Widget build(_, data) => Container(
+  Widget build(_, data, {ScreenWidget screenWidget}) => Container(
         alignment: Alignment.bottomCenter,
         child: Container(
           padding: EdgeInsets.all(50),

@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:screens/screen_overlay.dart';
+import 'package:screens/custom_overlay.dart';
+import 'package:screens/screen_widget.dart';
+import 'package:screens/overlay_widget.dart';
 
-class CustomErrorWidget implements ScreenOverlay {
+class CustomErrorWidget implements CustomOverlay {
   @override
-  Widget build(_, data) => Material(
+  Widget build(OverlayWidget overlayWidget, data,
+          {ScreenWidget screenWidget}) =>
+      Material(
         child: Container(
           height: 200,
           color: Colors.red,

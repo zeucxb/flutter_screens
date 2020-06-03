@@ -1,14 +1,15 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:screens/error_dialog_widget.dart';
+import 'package:screens/default/error_overlay.dart';
+import 'package:screens/overlay_widget.dart';
 import 'package:screens/safe_area_config.dart';
-import 'package:screens/screen_event.dart';
-import 'package:screens/screen_overlay.dart';
+import 'package:screens/overlay_event.dart';
+import 'package:screens/custom_overlay.dart';
 
 class ScreenWidget extends StatefulWidget {
   // ignore: close_sinks
-  final StreamController<ScreenEvent> eventsStreamController =
+  final StreamController<OverlayEvent> eventsStreamController =
       StreamController();
   // ignore: close_sinks
   final StreamController<String> errorStreamController = StreamController();
@@ -29,9 +30,9 @@ class ScreenWidget extends StatefulWidget {
   final GlobalKey<ScaffoldState> scaffoldKey;
   final bool isDefaultScaffold;
   final SafeAreaConfig safeAreaConfig;
-  final ScreenOverlay errorOverlay;
+  final CustomOverlay errorOverlay;
   final Widget loaderWidget;
-  final Map<String, ScreenOverlay> screenEvents;
+  final Map<String, CustomOverlay> overlayEvents;
   final List<Widget> fixedOverlayWidgets;
 
   ScreenWidget({
@@ -52,7 +53,7 @@ class ScreenWidget extends StatefulWidget {
     this.safeAreaConfig = const SafeAreaConfig(),
     this.errorOverlay,
     this.loaderWidget,
-    this.screenEvents,
+    this.overlayEvents,
     this.fixedOverlayWidgets,
   })  : assert(child != null || children != null),
         super(key: key);
@@ -64,18 +65,10 @@ class ScreenWidget extends StatefulWidget {
 class _ScreenWidgetState extends State<ScreenWidget> {
   double _height;
 
-  get screenEvents => widget.screenEvents;
+  get overlayEvents => widget.overlayEvents;
   get errorOverlay => widget.errorOverlay;
   get loaderWidget => widget.loaderWidget;
   List<Widget> get fixedOverlayWidgets => widget.fixedOverlayWidgets ?? [];
-
-  @override
-  dispose() {
-    widget.eventsStreamController.close();
-    widget.errorStreamController.close();
-    widget.loaderStreamController.close();
-    super.dispose();
-  }
 
   _setHeight(double height) {
     if (_height == null) {
@@ -100,114 +93,70 @@ class _ScreenWidgetState extends State<ScreenWidget> {
           elevation: widget.showAppBar ? theme.appBarTheme.elevation : 0,
         );
 
-    return Stack(
-      children: <Widget>[
-        Scaffold(
-          key: widget.scaffoldKey,
-          backgroundColor: widget.backgroundColor ??
-              (widget.isAccent ? theme.accentColor : null),
-          appBar: widget.showAppBar
-              ? _appBar
-              : PreferredSize(
-                  preferredSize: Size.fromHeight(0),
-                  child: _appBar,
-                ),
-          body: SafeArea(
-            top: widget.safeAreaConfig.top,
-            left: widget.safeAreaConfig.left,
-            right: widget.safeAreaConfig.right,
-            bottom: widget.safeAreaConfig.bottom,
-            child: widget.isDefaultScaffold
-                ? Padding(
-                    padding: widget.padding,
-                    child: widget.child,
-                  )
-                : (widget.child != null)
-                    ? LayoutBuilder(
-                        builder:
-                            (BuildContext context, BoxConstraints constraints) {
-                          _setHeight(constraints.constrainHeight(
-                              MediaQuery.of(context).size.height));
-                          return SingleChildScrollView(
-                            child: widget.isStatic
-                                ? Container(
-                                    padding: widget.padding,
-                                    height: _height,
-                                    child: widget.child,
-                                  )
-                                : widget.child,
-                          );
-                        },
-                      )
-                    : ListView(children: widget.children),
-          ),
-          bottomNavigationBar: widget.bottomNavigationBar,
+    return OverlayWidget(
+      Scaffold(
+        key: widget.scaffoldKey,
+        backgroundColor: widget.backgroundColor ??
+            (widget.isAccent ? theme.accentColor : null),
+        appBar: widget.showAppBar
+            ? _appBar
+            : PreferredSize(
+                preferredSize: Size.fromHeight(0),
+                child: _appBar,
+              ),
+        body: SafeArea(
+          top: widget.safeAreaConfig.top,
+          left: widget.safeAreaConfig.left,
+          right: widget.safeAreaConfig.right,
+          bottom: widget.safeAreaConfig.bottom,
+          child: widget.isDefaultScaffold
+              ? Padding(
+                  padding: widget.padding ?? EdgeInsets.zero,
+                  child: widget.child,
+                )
+              : (widget.child != null)
+                  ? LayoutBuilder(
+                      builder:
+                          (BuildContext context, BoxConstraints constraints) {
+                        _setHeight(constraints.constrainHeight(
+                            MediaQuery.of(context).size.height));
+                        return SingleChildScrollView(
+                          child: widget.isStatic
+                              ? Container(
+                                  padding: widget.padding,
+                                  height: _height,
+                                  child: widget.child,
+                                )
+                              : widget.child,
+                        );
+                      },
+                    )
+                  : ListView(children: widget.children),
         ),
-        _buildScreenEvent(context),
-        _buildErrorDialog(context),
-        _buildLoader(context),
-      ]..addAll(fixedOverlayWidgets),
-    );
-  }
-
-  Widget _buildScreenEvent(BuildContext context) => StreamBuilder<ScreenEvent>(
-        stream: widget.eventsStreamController.stream,
-        builder: (BuildContext context, AsyncSnapshot snapshot) {
-          final ScreenEvent screenEvent = snapshot.data;
-          if (screenEvent == null) {
-            return Container();
-          }
-
-          return (screenEvents[snapshot.data.event] != null)
-              ? screenEvents[snapshot.data.event]
-                  .build(widget, snapshot.data.data)
-              : Container();
-        },
-      );
-
-  Widget _buildErrorDialog(BuildContext context) => StreamBuilder<String>(
-        stream: widget.errorStreamController.stream,
-        builder: (BuildContext context, AsyncSnapshot snapshot) {
-          if (snapshot.data == null || snapshot.data.isEmpty) {
-            return Container();
-          }
-
-          return (errorOverlay != null)
-              ? errorOverlay.build(widget, snapshot.data)
-              : ErrorDialog(
-                  errorMessage: snapshot.data,
-                  previousStatusBarWhiteForeground: !widget.isAccent,
-                  closeFunction: () {
-                    widget.errorStreamController.add(null);
-                  },
-                );
-        },
-      );
-
-  Widget _buildLoader(BuildContext context) => StreamBuilder<bool>(
-        stream: widget.loaderStreamController.stream,
-        builder: (BuildContext context, AsyncSnapshot snapshot) {
-          if (snapshot.data == null || !snapshot.data) {
-            return Container();
-          }
-
-          final theme = Theme.of(context);
-
-          return loaderWidget ??
-              Container(
-                color: Colors.black.withOpacity(0.5),
-                height: double.infinity,
-                width: double.infinity,
-                child: Center(
-                  child: CircularProgressIndicator(
-                    valueColor: AlwaysStoppedAnimation<Color>(
-                      !widget.isAccent
-                          ? theme.accentColor
-                          : theme.scaffoldBackgroundColor,
-                    ),
-                  ),
+        bottomNavigationBar: widget.bottomNavigationBar,
+      ),
+      overlayEvents: overlayEvents,
+      errorOverlay: errorOverlay ?? DefaultCustomErrorWidget(),
+      loaderWidget: loaderWidget ??
+          Container(
+            color: Colors.black.withOpacity(0.5),
+            height: double.infinity,
+            width: double.infinity,
+            child: Center(
+              child: CircularProgressIndicator(
+                valueColor: AlwaysStoppedAnimation<Color>(
+                  !widget.isAccent
+                      ? theme.accentColor
+                      : theme.scaffoldBackgroundColor,
                 ),
-              );
-        },
-      );
+              ),
+            ),
+          ),
+      fixedOverlayWidgets: fixedOverlayWidgets,
+      screenWidget: widget,
+    )
+      ..eventsStreamController.addStream(widget.eventsStreamController.stream)
+      ..loaderStreamController.addStream(widget.loaderStreamController.stream)
+      ..errorStreamController.addStream(widget.errorStreamController.stream);
+  }
 }

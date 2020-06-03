@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
             location: BannerLocation.topStart,
           )
         ],
-        screenEvents: {
+        overlayEvents: {
           'icons': CustomOverlayWidget(),
         },
         loaderWidget: CustomLoaderWidget(),
@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
         child: Container(),
       )
         ..eventsStreamController.add(
-          ScreenEvent('icons', Icons.access_alarm),
+          OverlayEvent('icons', Icons.access_alarm),
         )
         ..loaderStreamController.add(true)
         ..errorStreamController.add('Something went really wrong!'),

@@ -1,3 +1,13 @@
+## [2.0.0]
+> Contains Breaking Changes
+
+* Add Screens `overlay` method
+* Add OverlayWidget
+* Now ScreenWidget use OverlayWidget
+* Change ScreenEvent(s) to OverlayEvent(s)
+* Change ScreenOverlay to CustomOverlay
+* Fix `isDefaultScaffold` padding bug
+
 ## [1.6.1]
 * Change `statusBerBrightness` to `statusBarBrightness`
 
