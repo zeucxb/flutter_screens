@@ -1,3 +1,6 @@
+## [2.1.0]
+* Now `fixedOverlayWidgets` is the least priority of overlay the stack
+
 ## [2.0.0]
 > Contains Breaking Changes
 

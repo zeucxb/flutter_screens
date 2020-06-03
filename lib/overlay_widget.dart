@@ -58,10 +58,13 @@ class _OverlayWidgetState extends State<OverlayWidget> {
     return Stack(
       children: <Widget>[
         widget.child,
-        _buildOverlayEvent(context),
-        _buildErrorDialog(context),
-        _buildLoader(context),
-      ]..addAll(fixedOverlayWidgets),
+      ]
+        ..addAll(fixedOverlayWidgets)
+        ..addAll([
+          _buildOverlayEvent(context),
+          _buildErrorDialog(context),
+          _buildLoader(context),
+        ]),
     );
   }
 
