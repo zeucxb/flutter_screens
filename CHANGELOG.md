@@ -1,3 +1,6 @@
+## [2.2.0]
+* Add `overlay params {fixedOverlayWidgets, overlayEvents, errorOverlay, loaderWidget}` to `Screens().widget` and `Screens().overlay`
+
 ## [2.1.0]
 * Now `fixedOverlayWidgets` is the least priority of overlay the stack
 

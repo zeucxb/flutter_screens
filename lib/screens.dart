@@ -15,8 +15,8 @@ class Screens {
   final Widget loaderWidget;
 
   Screens({
-    this.fixedOverlayWidgets,
-    this.overlayEvents,
+    this.fixedOverlayWidgets = const [],
+    this.overlayEvents = const {},
     this.errorOverlay,
     this.loaderWidget,
   });
@@ -36,6 +36,10 @@ class Screens {
     Brightness statusBarBrightness,
     Color backgroundColor,
     SafeAreaConfig safeAreaConfig = const SafeAreaConfig(),
+    List<Widget> fixedOverlayWidgets,
+    Map<String, CustomOverlay> overlayEvents,
+    CustomOverlay errorOverlay,
+    Widget loaderWidget,
   }) =>
       ScreenWidget(
         scaffoldKey: scaffoldKey,
@@ -52,17 +56,26 @@ class Screens {
         statusBarBrightness: statusBarBrightness,
         backgroundColor: backgroundColor,
         safeAreaConfig: safeAreaConfig,
-        errorOverlay: this.errorOverlay,
-        loaderWidget: this.loaderWidget,
-        overlayEvents: this.overlayEvents,
-        fixedOverlayWidgets: this.fixedOverlayWidgets,
+        errorOverlay: errorOverlay ?? this.errorOverlay,
+        loaderWidget: loaderWidget ?? this.loaderWidget,
+        overlayEvents: this.overlayEvents..addAll(overlayEvents),
+        fixedOverlayWidgets: this.fixedOverlayWidgets
+          ..addAll(fixedOverlayWidgets),
       );
 
-  OverlayWidget overlay(Widget widget) => OverlayWidget(
+  OverlayWidget overlay(
+    Widget widget, {
+    List<Widget> fixedOverlayWidgets,
+    Map<String, CustomOverlay> overlayEvents,
+    CustomOverlay errorOverlay,
+    Widget loaderWidget,
+  }) =>
+      OverlayWidget(
         widget,
-        errorOverlay: this.errorOverlay,
-        loaderWidget: this.loaderWidget,
-        overlayEvents: this.overlayEvents,
-        fixedOverlayWidgets: this.fixedOverlayWidgets,
+        errorOverlay: errorOverlay ?? this.errorOverlay,
+        loaderWidget: loaderWidget ?? this.loaderWidget,
+        overlayEvents: this.overlayEvents..addAll(overlayEvents),
+        fixedOverlayWidgets: this.fixedOverlayWidgets
+          ..addAll(fixedOverlayWidgets),
       );
 }
