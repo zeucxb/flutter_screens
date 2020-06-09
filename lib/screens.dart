@@ -40,8 +40,8 @@ class Screens {
     Brightness statusBarBrightness,
     Color backgroundColor,
     SafeAreaConfig safeAreaConfig = const SafeAreaConfig(),
-    List<Widget> fixedOverlayWidgets,
-    Map<String, CustomOverlay> overlayEvents,
+    List<Widget> fixedOverlayWidgets = const [],
+    Map<String, CustomOverlay> overlayEvents = const {},
     CustomOverlay errorOverlay,
     Widget loaderWidget,
   }) =>
@@ -69,8 +69,8 @@ class Screens {
 
   OverlayWidget overlay(
     Widget widget, {
-    List<Widget> fixedOverlayWidgets,
-    Map<String, CustomOverlay> overlayEvents,
+    List<Widget> fixedOverlayWidgets = const [],
+    Map<String, CustomOverlay> overlayEvents = const {},
     CustomOverlay errorOverlay,
     Widget loaderWidget,
   }) =>
