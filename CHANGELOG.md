@@ -1,3 +1,6 @@
+## [2.2.1]
+* Fix `[2.2.0]`
+
 ## [2.2.0]
 * Add `overlay params {fixedOverlayWidgets, overlayEvents, errorOverlay, loaderWidget}` to `Screens().widget` and `Screens().overlay`
 

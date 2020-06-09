@@ -9,17 +9,21 @@ import 'package:screens/screen_widget.dart';
 export 'package:screens/overlay_event.dart';
 
 class Screens {
-  final List<Widget> fixedOverlayWidgets;
-  final Map<String, CustomOverlay> overlayEvents;
+  final List<Widget> fixedOverlayWidgets = [];
+  final Map<String, CustomOverlay> overlayEvents = {};
   final CustomOverlay errorOverlay;
   final Widget loaderWidget;
 
   Screens({
-    this.fixedOverlayWidgets = const [],
-    this.overlayEvents = const {},
+    fixedOverlayWidgets,
+    overlayEvents,
     this.errorOverlay,
     this.loaderWidget,
-  });
+  }) {
+    if (fixedOverlayWidgets != null)
+      this.fixedOverlayWidgets.addAll(fixedOverlayWidgets);
+    if (overlayEvents != null) this.overlayEvents.addAll(overlayEvents);
+  }
 
   ScreenWidget widget({
     GlobalKey<ScaffoldState> scaffoldKey,
