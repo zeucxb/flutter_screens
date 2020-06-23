@@ -1,3 +1,6 @@
+## [2.3.2]
+* bottomNavigationBar now is a widget
+
 ## [2.3.1]
 * Add support to FloatActionButton
 

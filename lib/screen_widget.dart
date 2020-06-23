@@ -24,7 +24,7 @@ class ScreenWidget extends StatefulWidget {
   final bool isAccent;
   final bool isStatic;
   final EdgeInsetsGeometry padding;
-  final BottomNavigationBar bottomNavigationBar;
+  final Widget bottomNavigationBar;
   final Brightness statusBarBrightness;
   final Color backgroundColor;
   final GlobalKey<ScaffoldState> scaffoldKey;

@@ -36,7 +36,7 @@ class Screens {
     EdgeInsets padding,
     Widget child,
     List<Widget> children,
-    BottomNavigationBar bottomNavigationBar,
+    Widget bottomNavigationBar,
     Brightness statusBarBrightness,
     Color backgroundColor,
     SafeAreaConfig safeAreaConfig = const SafeAreaConfig(),
