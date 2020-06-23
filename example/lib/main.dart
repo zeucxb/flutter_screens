@@ -28,6 +28,11 @@ class MyApp extends StatelessWidget {
       ).widget(
         statusBarBrightness: Brightness.light,
         backgroundColor: Colors.brown,
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {},
+          child: Icon(Icons.satellite),
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         child: Container(),
       )
         ..eventsStreamController.add(

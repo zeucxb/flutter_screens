@@ -30,6 +30,9 @@ class ScreenWidget extends StatefulWidget {
   final GlobalKey<ScaffoldState> scaffoldKey;
   final bool isDefaultScaffold;
   final SafeAreaConfig safeAreaConfig;
+  final Widget floatingActionButton;
+  final FloatingActionButtonAnimator floatingActionButtonAnimator;
+  final FloatingActionButtonLocation floatingActionButtonLocation;
   final CustomOverlay errorOverlay;
   final Widget loaderWidget;
   final Map<String, CustomOverlay> overlayEvents;
@@ -51,6 +54,9 @@ class ScreenWidget extends StatefulWidget {
     this.statusBarBrightness,
     this.backgroundColor,
     this.safeAreaConfig = const SafeAreaConfig(),
+    this.floatingActionButton,
+    this.floatingActionButtonAnimator,
+    this.floatingActionButtonLocation,
     this.errorOverlay,
     this.loaderWidget,
     this.overlayEvents,
@@ -104,6 +110,9 @@ class _ScreenWidgetState extends State<ScreenWidget> {
                 preferredSize: Size.fromHeight(0),
                 child: _appBar,
               ),
+        floatingActionButton: widget.floatingActionButton,
+        floatingActionButtonAnimator: widget.floatingActionButtonAnimator,
+        floatingActionButtonLocation: widget.floatingActionButtonLocation,
         body: SafeArea(
           top: widget.safeAreaConfig.top,
           left: widget.safeAreaConfig.left,

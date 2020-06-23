@@ -1,3 +1,6 @@
+## [2.3.1]
+* Add support to FloatActionButton
+
 ## [2.3.0]
 * Fix `[2.2.1]`
 
