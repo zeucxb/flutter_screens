@@ -27,6 +27,8 @@ class MyApp extends StatelessWidget {
         errorOverlay: CustomErrorWidget(),
       ).widget(
         statusBarBrightness: Brightness.light,
+        showAppBar: true,
+        appBarWidget: AppBar(),
         backgroundColor: Colors.brown,
         floatingActionButton: FloatingActionButton(
           onPressed: () {},

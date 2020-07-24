@@ -1,4 +1,7 @@
-## [2.3.2]
+## [2.3.4]
+* appBarWidget now is a PreferredSizeWidget
+
+## [2.3.3]
 * appBarWidget now is a widget
 
 ## [2.3.2]
