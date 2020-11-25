@@ -1,3 +1,7 @@
+## [2.3.5]
+* appBarWidget now is a Widget
+* MIT LICENSE
+
 ## [2.3.4]
 * appBarWidget now is a PreferredSizeWidget
 

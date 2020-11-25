@@ -32,7 +32,7 @@ class Screens {
     bool isStatic = false,
     bool isDefaultScaffold = false,
     String appBarText = '',
-    PreferredSizeWidget appBarWidget,
+    Widget appBarWidget,
     EdgeInsets padding,
     Widget child,
     List<Widget> children,
