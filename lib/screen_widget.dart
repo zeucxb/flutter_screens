@@ -20,7 +20,7 @@ class ScreenWidget extends StatefulWidget {
   final List<Widget> children;
   final bool showAppBar;
   final String appBarText;
-  final Widget appBarWidget;
+  final PreferredSizeWidget appBarWidget;
   final bool isAccent;
   final bool isStatic;
   final EdgeInsetsGeometry padding;
