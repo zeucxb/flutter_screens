@@ -24,7 +24,7 @@ class OverlayWidget extends StatefulWidget {
   }) : super(key: key);
 
   // ignore: close_sinks
-  final StreamController<OverlayEvent> eventsStreamController =
+  final StreamController<OverlayEvent?> eventsStreamController =
       StreamController();
 
   // ignore: close_sinks
@@ -69,7 +69,7 @@ class _OverlayWidgetState extends State<OverlayWidget> {
   }
 
   Widget _buildOverlayEvent(BuildContext context) =>
-      StreamBuilder<OverlayEvent>(
+      StreamBuilder<OverlayEvent?>(
         stream: widget.eventsStreamController.stream,
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           final OverlayEvent? overlayEvent = snapshot.data;

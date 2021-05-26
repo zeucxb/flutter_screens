@@ -9,10 +9,10 @@ import 'package:screens/custom_overlay.dart';
 
 class ScreenWidget extends StatefulWidget {
   // ignore: close_sinks
-  final StreamController<OverlayEvent> eventsStreamController =
+  final StreamController<OverlayEvent?> eventsStreamController =
       StreamController();
   // ignore: close_sinks
-  final StreamController<String> errorStreamController = StreamController();
+  final StreamController<String?> errorStreamController = StreamController();
   // ignore: close_sinks
   final StreamController<bool> loaderStreamController = StreamController();
 

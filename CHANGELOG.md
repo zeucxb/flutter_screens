@@ -1,3 +1,6 @@
+## [2.5.0]
+* Fix error and overlay event streams
+
 ## [2.4.0]
 * Add null safety support
 
