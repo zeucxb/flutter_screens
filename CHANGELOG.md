@@ -1,3 +1,6 @@
+## [2.4.0]
+* Add null safety support
+
 ## [2.3.6]
 * appBarWidget now is a PreferredSizeWidget again
 

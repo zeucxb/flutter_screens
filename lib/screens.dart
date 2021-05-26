@@ -11,14 +11,16 @@ export 'package:screens/overlay_event.dart';
 class Screens {
   final List<Widget> fixedOverlayWidgets = [];
   final Map<String, CustomOverlay> overlayEvents = {};
-  final CustomOverlay errorOverlay;
-  final Widget loaderWidget;
+  final CustomOverlay? errorOverlay;
+  final Widget? loaderWidget;
+  final Function? dispose;
 
   Screens({
     fixedOverlayWidgets,
     overlayEvents,
     this.errorOverlay,
     this.loaderWidget,
+    this.dispose,
   }) {
     if (fixedOverlayWidgets != null)
       this.fixedOverlayWidgets.addAll(fixedOverlayWidgets);
@@ -26,27 +28,28 @@ class Screens {
   }
 
   ScreenWidget widget({
-    GlobalKey<ScaffoldState> scaffoldKey,
+    GlobalKey<ScaffoldState>? scaffoldKey,
     bool showAppBar = false,
     bool isAccent = false,
     bool isStatic = false,
     bool isDefaultScaffold = false,
     String appBarText = '',
-    PreferredSizeWidget appBarWidget,
-    EdgeInsets padding,
-    Widget child,
-    List<Widget> children,
-    Widget bottomNavigationBar,
-    Brightness statusBarBrightness,
-    Color backgroundColor,
+    PreferredSizeWidget? appBarWidget,
+    EdgeInsets? padding,
+    Widget? child,
+    List<Widget>? children,
+    Widget? bottomNavigationBar,
+    Brightness? statusBarBrightness,
+    Color? backgroundColor,
     SafeAreaConfig safeAreaConfig = const SafeAreaConfig(),
-    Widget floatingActionButton,
-    FloatingActionButtonAnimator floatingActionButtonAnimator,
-    FloatingActionButtonLocation floatingActionButtonLocation,
+    Widget? floatingActionButton,
+    FloatingActionButtonAnimator? floatingActionButtonAnimator,
+    FloatingActionButtonLocation? floatingActionButtonLocation,
     List<Widget> fixedOverlayWidgets = const [],
     Map<String, CustomOverlay> overlayEvents = const {},
-    CustomOverlay errorOverlay,
-    Widget loaderWidget,
+    CustomOverlay? errorOverlay,
+    Widget? loaderWidget,
+    Function? dispose,
   }) =>
       ScreenWidget(
         scaffoldKey: scaffoldKey,
@@ -66,6 +69,7 @@ class Screens {
         floatingActionButton: floatingActionButton,
         floatingActionButtonAnimator: floatingActionButtonAnimator,
         floatingActionButtonLocation: floatingActionButtonLocation,
+        dispose: this.dispose ?? dispose,
         errorOverlay: errorOverlay ?? this.errorOverlay,
         loaderWidget: loaderWidget ?? this.loaderWidget,
         overlayEvents: this.overlayEvents..addAll(overlayEvents),
@@ -77,8 +81,8 @@ class Screens {
     Widget widget, {
     List<Widget> fixedOverlayWidgets = const [],
     Map<String, CustomOverlay> overlayEvents = const {},
-    CustomOverlay errorOverlay,
-    Widget loaderWidget,
+    CustomOverlay? errorOverlay,
+    Widget? loaderWidget,
   }) =>
       OverlayWidget(
         widget,

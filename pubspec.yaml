@@ -1,10 +1,10 @@
 name: screens
 description: A way to manage screens and widgets overlay using streams (ex. load, error/warning/info alert or whatever you want), and create flutter app screens (based on material).
-version: 2.3.6
+version: 2.4.0
 homepage: https://github.com/zeucxb/flutter_screens
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: '>=2.12.0 <3.0.0'
 
 dependencies:
   flutter:

@@ -4,5 +4,5 @@ import 'package:screens/screen_widget.dart';
 
 abstract class CustomOverlay {
   Widget build(OverlayWidget overlayWidget, dynamic data,
-      {ScreenWidget screenWidget});
+      {ScreenWidget? screenWidget});
 }

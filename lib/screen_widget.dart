@@ -16,30 +16,31 @@ class ScreenWidget extends StatefulWidget {
   // ignore: close_sinks
   final StreamController<bool> loaderStreamController = StreamController();
 
-  final Widget child;
-  final List<Widget> children;
+  final Widget? child;
+  final List<Widget>? children;
   final bool showAppBar;
   final String appBarText;
-  final PreferredSizeWidget appBarWidget;
+  final PreferredSizeWidget? appBarWidget;
   final bool isAccent;
   final bool isStatic;
-  final EdgeInsetsGeometry padding;
-  final Widget bottomNavigationBar;
-  final Brightness statusBarBrightness;
-  final Color backgroundColor;
-  final GlobalKey<ScaffoldState> scaffoldKey;
+  final EdgeInsetsGeometry? padding;
+  final Widget? bottomNavigationBar;
+  final Brightness? statusBarBrightness;
+  final Color? backgroundColor;
+  final GlobalKey<ScaffoldState>? scaffoldKey;
   final bool isDefaultScaffold;
   final SafeAreaConfig safeAreaConfig;
-  final Widget floatingActionButton;
-  final FloatingActionButtonAnimator floatingActionButtonAnimator;
-  final FloatingActionButtonLocation floatingActionButtonLocation;
-  final CustomOverlay errorOverlay;
-  final Widget loaderWidget;
-  final Map<String, CustomOverlay> overlayEvents;
-  final List<Widget> fixedOverlayWidgets;
+  final Widget? floatingActionButton;
+  final FloatingActionButtonAnimator? floatingActionButtonAnimator;
+  final FloatingActionButtonLocation? floatingActionButtonLocation;
+  final CustomOverlay? errorOverlay;
+  final Widget? loaderWidget;
+  final Map<String, CustomOverlay>? overlayEvents;
+  final List<Widget>? fixedOverlayWidgets;
+  final Function? dispose;
 
   ScreenWidget({
-    Key key,
+    Key? key,
     this.scaffoldKey,
     this.showAppBar = false,
     this.isAccent = false,
@@ -61,6 +62,7 @@ class ScreenWidget extends StatefulWidget {
     this.loaderWidget,
     this.overlayEvents,
     this.fixedOverlayWidgets,
+    this.dispose,
   })  : assert(child != null || children != null),
         super(key: key);
 
@@ -69,7 +71,7 @@ class ScreenWidget extends StatefulWidget {
 }
 
 class _ScreenWidgetState extends State<ScreenWidget> {
-  double _height;
+  double? _height;
 
   get overlayEvents => widget.overlayEvents;
   get errorOverlay => widget.errorOverlay;
@@ -80,6 +82,14 @@ class _ScreenWidgetState extends State<ScreenWidget> {
     if (_height == null) {
       _height = height;
     }
+  }
+
+  @override
+  void dispose() {
+    if (widget.dispose != null) {
+      widget.dispose!();
+    }
+    super.dispose();
   }
 
   @override
@@ -140,7 +150,7 @@ class _ScreenWidgetState extends State<ScreenWidget> {
                         );
                       },
                     )
-                  : ListView(children: widget.children),
+                  : ListView(children: widget.children!),
         ),
         bottomNavigationBar: widget.bottomNavigationBar,
       ),

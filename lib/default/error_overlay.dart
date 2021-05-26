@@ -7,11 +7,11 @@ import 'package:screens/overlay_widget.dart';
 class DefaultCustomErrorWidget implements CustomOverlay {
   @override
   Widget build(OverlayWidget overlayWidget, data,
-          {ScreenWidget screenWidget}) =>
+          {ScreenWidget? screenWidget}) =>
       Material(
         child: ErrorDialog(
           errorMessage: data,
-          previousStatusBarWhiteForeground: !screenWidget.isAccent,
+          previousStatusBarWhiteForeground: !screenWidget!.isAccent,
           closeFunction: () {
             overlayWidget.errorStreamController.add(null);
           },

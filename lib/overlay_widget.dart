@@ -8,14 +8,14 @@ import 'package:screens/screen_widget.dart';
 class OverlayWidget extends StatefulWidget {
   final Widget child;
 
-  final CustomOverlay errorOverlay;
-  final Widget loaderWidget;
-  final Map<String, CustomOverlay> overlayEvents;
-  final List<Widget> fixedOverlayWidgets;
+  final CustomOverlay? errorOverlay;
+  final Widget? loaderWidget;
+  final Map<String, CustomOverlay>? overlayEvents;
+  final List<Widget>? fixedOverlayWidgets;
 
   OverlayWidget(
     this.child, {
-    Key key,
+    Key? key,
     this.errorOverlay,
     this.loaderWidget,
     this.overlayEvents,
@@ -28,12 +28,12 @@ class OverlayWidget extends StatefulWidget {
       StreamController();
 
   // ignore: close_sinks
-  final StreamController<String> errorStreamController = StreamController();
+  final StreamController<String?> errorStreamController = StreamController();
 
   // ignore: close_sinks
   final StreamController<bool> loaderStreamController = StreamController();
 
-  final ScreenWidget screenWidget;
+  final ScreenWidget? screenWidget;
 
   @override
   _OverlayWidgetState createState() => _OverlayWidgetState();
@@ -72,7 +72,7 @@ class _OverlayWidgetState extends State<OverlayWidget> {
       StreamBuilder<OverlayEvent>(
         stream: widget.eventsStreamController.stream,
         builder: (BuildContext context, AsyncSnapshot snapshot) {
-          final OverlayEvent overlayEvent = snapshot.data;
+          final OverlayEvent? overlayEvent = snapshot.data;
 
           if (overlayEvent == null || overlayEvents == null) {
             return Container();
@@ -86,7 +86,7 @@ class _OverlayWidgetState extends State<OverlayWidget> {
         },
       );
 
-  Widget _buildErrorDialog(BuildContext context) => StreamBuilder<String>(
+  Widget _buildErrorDialog(BuildContext context) => StreamBuilder<String?>(
         stream: widget.errorStreamController.stream,
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.data == null || snapshot.data.isEmpty) {

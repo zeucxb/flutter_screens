@@ -2,21 +2,20 @@ import 'package:flutter/material.dart';
 
 class ErrorDialog extends StatelessWidget {
   final String errorMessage;
-  final bool previousStatusBarWhiteForeground;
+  final bool? previousStatusBarWhiteForeground;
   final Function closeFunction;
 
   ErrorDialog({
-    Key key,
-    @required this.errorMessage,
+    Key? key,
+    required this.errorMessage,
     this.previousStatusBarWhiteForeground,
-    @required this.closeFunction,
-  })  : assert(errorMessage != null && errorMessage.isNotEmpty),
-        assert(closeFunction != null),
+    required this.closeFunction,
+  })  : assert(errorMessage.isNotEmpty),
         super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    if (errorMessage == null) return Container();
+    if (errorMessage.isEmpty) return Container();
 
     return Container(
       alignment: Alignment.bottomCenter,
@@ -51,7 +50,7 @@ class ErrorDialog extends StatelessWidget {
                   ),
                 ),
                 GestureDetector(
-                  onTap: closeFunction,
+                  onTap: closeFunction as void Function()?,
                   child: Container(
                     decoration: BoxDecoration(
                       color: Colors.white.withOpacity(0.25),
